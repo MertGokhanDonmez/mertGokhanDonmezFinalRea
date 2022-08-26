@@ -1,0 +1,94 @@
+﻿<div class="text-center">
+    <h1 class="mytaggories">My taggories</h1>
+</div>
+<div class="row">
+    @foreach(var i in Model){
+    <div class="col-xl-4 col-md-6 col-12 mt-4">   
+          <div class="card">
+                 <div class="card-header">
+                    @i.tagName
+                 </div>
+                 <div class="card-body">
+                    @i.tagContent
+                </div>
+                <div class="card-footer"  >
+                    <a class="btn btn-outline-danger"  asp-route-id="@i.tagID" asp-action="Removetag">Delete</a>
+                    <a onclick="$('#UpdatetagModal').modal('show')" data-toggle="modal" asp-route-id="@i.tagID" asp-controller="Home" asp-action="Updatetag">Update tag</a>
+                </div>   
+          </div>
+    </div>
+    }
+</div>
+
+<!-- Create tag -->
+<div class="modal" id="tagModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New tag</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="/Home/Addtag">
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="text" name="tagId" id="tagId" class="form-control d-none" placeholder="ID will be generated automaticly" disabled/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="tagName" id="tagName" class="form-control" placeholder="tag Header" required/>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" name="tagContent" id="tagContent" rows="3" placeholder="Enter Your tag Here.." required></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-success">Create</button>
+        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Update tag -->
+<div class="modal" id="UpdatetagModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update tag</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="/Home/Updatetag">
+      <div class="modal-body">
+        @foreach(var i in Model){
+        <div class="form-group">
+            <input type="text" name="tagId" id="tagId" class="form-control d-none" placeholder="@i.tagId" disabled/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="tagName" id="tagName" class="form-control" value="@i.tagName" required/>
+        </div>
+        <div class="form-group">
+            <!-- update ettikten sonra yeni bir tane olusuyor BUG -->
+            <textarea class="form-control" name="tagContent" id="tagContent" rows="3" required>@i.tagContent</textarea>
+        </div>
+        }
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-success">Update</button>
+        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FINAL EXAM</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="header bg-dark">
+        <div class="logo" style="color: white;">
+            <h5> REA FINAL </h5>
+        </div>
+        <ul class="nav justify-content-end">
+            <li class="btn btn-outline-light">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="btn btn-outline-light">
+                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Products">Products</a>
+            </li>
+            <li class="btn btn-outline-light">
+                <a onclick="$('#CategoryModal').modal('show')" data-toggle="modal" class="nav-link" asp-area="" asp-controller="Home" asp-action="AddProduct">Create Product</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <main role="main" class="pb-3 pt-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="navbar fixed-bottom bg-dark">
+        <p>Copyright &copy; -  All Rights Reserved</p>
+    </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

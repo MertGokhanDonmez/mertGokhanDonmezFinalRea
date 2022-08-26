@@ -1,0 +1,94 @@
+﻿<div class="text-center">
+    <h1 class="myCategories">My Categories</h1>
+</div>
+<div class="row">
+    @foreach(var i in Model){
+    <div class="col-xl-4 col-md-6 col-12 mt-4">   
+          <div class="card">
+                 <div class="card-header">
+                    @i.cateName
+                 </div>
+                 <div class="card-body">
+                    @i.CategoryContent
+                </div>
+                <div class="card-footer"  >
+                    <a class="btn btn-outline-danger"  asp-route-id="@i.categoryID" asp-action="RemoveCategory">Delete</a>
+                    <a onclick="$('#UpdateCategoryModal').modal('show')" data-toggle="modal" asp-route-id="@i.categoryID" asp-controller="Home" asp-action="UpdateCategory">Update Category</a>
+                </div>   
+          </div>
+    </div>
+    }
+</div>
+
+<!-- Create Category -->
+<div class="modal" id="CategoryModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="/Home/AddCategory">
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="text" name="CategoryId" id="CategoryId" class="form-control d-none" placeholder="ID will be generated automaticly" disabled/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="cateName" id="cateName" class="form-control" placeholder="Category Header" required/>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" name="CategoryContent" id="CategoryContent" rows="3" placeholder="Enter Your Category Here.." required></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-success">Create</button>
+        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Update Category -->
+<div class="modal" id="UpdateCategoryModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="/Home/UpdateCategory">
+      <div class="modal-body">
+        @foreach(var i in Model){
+        <div class="form-group">
+            <input type="text" name="cateId" id="cateId" class="form-control d-none" placeholder="@i.CategoryId" disabled/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="cateName" id="cateName" class="form-control" value="@i.cateName" required/>
+        </div>
+        <div class="form-group">
+            <!-- update ettikten sonra yeni bir tane olusuyor BUG -->
+            <textarea class="form-control" name="CategoryContent" id="CategoryContent" rows="3" required>@i.CategoryContent</textarea>
+        </div>
+        }
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-success">Update</button>
+        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>

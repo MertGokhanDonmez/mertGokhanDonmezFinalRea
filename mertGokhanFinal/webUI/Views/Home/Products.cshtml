@@ -1,0 +1,94 @@
+﻿<div class="text-center">
+    <h1 class="myprogories">My Products</h1>
+</div>
+<div class="row">
+    @foreach(var i in Model){
+    <div class="col-xl-4 col-md-6 col-12 mt-4">   
+          <div class="card">
+                 <div class="card-header">
+                    @i.proName
+                 </div>
+                 <div class="card-body">
+                    @i.productContent
+                </div>
+                <div class="card-footer"  >
+                    <a class="btn btn-outline-danger"  asp-route-id="@i.productID" asp-action="Removeproduct">Delete</a>
+                    <a onclick="$('#UpdateproductModal').modal('show')" data-toggle="modal" asp-route-id="@i.productID" asp-controller="Home" asp-action="Updateproduct">Update product</a>
+                </div>   
+          </div>
+    </div>
+    }
+</div>
+
+<!-- Create product -->
+<div class="modal" id="productModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="/Home/Addproduct">
+      <div class="modal-body">
+        <div class="form-group">
+            <input type="text" name="productId" id="productId" class="form-control d-none" placeholder="ID will be generated automaticly" disabled/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="proName" id="proName" class="form-control" placeholder="product Header" required/>
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" name="productContent" id="productContent" rows="3" placeholder="Enter Your product Here.." required></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-success">Create</button>
+        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Update product -->
+<div class="modal" id="UpdateproductModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Update product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="/Home/Updateproduct">
+      <div class="modal-body">
+        @foreach(var i in Model){
+        <div class="form-group">
+            <input type="text" name="proId" id="proId" class="form-control d-none" placeholder="@i.productId" disabled/>
+        </div>
+        <div class="form-group">
+            <input type="text" name="proName" id="proName" class="form-control" value="@i.proName" required/>
+        </div>
+        <div class="form-group">
+            <!-- update ettikten sonra yeni bir tane olusuyor BUG -->
+            <textarea class="form-control" name="productContent" id="productContent" rows="3" required>@i.productContent</textarea>
+        </div>
+        }
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-outline-success">Update</button>
+        
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
